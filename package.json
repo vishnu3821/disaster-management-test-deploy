@@ -15,7 +15,8 @@
     "nodemon": "^3.1.0"
   },
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=16.0.0",
+    "npm": ">=7.0.0"
   },
   "keywords": [
     "disaster",
@@ -32,5 +33,21 @@
   "bugs": {
     "url": "https://github.com/vishnu3821/disaster-management-test-deploy/issues"
   },
-  "homepage": "https://github.com/vishnu3821/disaster-management-test-deploy#readme"
+  "homepage": "https://github.com/vishnu3821/disaster-management-test-deploy#readme",
+  "private": true,
+  "cacheDirectories": [
+    "node_modules"
+  ],
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
 }
