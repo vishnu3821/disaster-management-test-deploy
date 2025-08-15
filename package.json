@@ -1,6 +1,7 @@
 {
-  "name": "railway-test-deploy",
+  "name": "disaster-management-test-deploy",
   "version": "1.0.0",
+  "description": "Test deployment for Disaster Management System backend",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -16,7 +17,20 @@
   "engines": {
     "node": ">=16.0.0"
   },
-  "keywords": ["test", "railway", "deployment"],
-  "author": "",
-  "license": "ISC"
+  "keywords": [
+    "disaster",
+    "management",
+    "api",
+    "test"
+  ],
+  "author": "Disaster Management Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vishnu3821/disaster-management-test-deploy.git"
+  },
+  "bugs": {
+    "url": "https://github.com/vishnu3821/disaster-management-test-deploy/issues"
+  },
+  "homepage": "https://github.com/vishnu3821/disaster-management-test-deploy#readme"
 }

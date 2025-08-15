@@ -7,13 +7,15 @@ console.log('Environment Variables:', {
   HOST: process.env.HOST,
   NODE_ENV: process.env.NODE_ENV,
   RAILWAY_ENVIRONMENT: process.env.RAILWAY_ENVIRONMENT,
-  RAILWAY_SERVICE_NAME: process.env.RAILWAY_SERVICE_NAME
+  RAILWAY_SERVICE_NAME: process.env.RAILWAY_SERVICE_NAME,
+  RAILWAY_PROJECT_ID: process.env.RAILWAY_PROJECT_ID,
+  RAILWAY_SERVICE_ID: process.env.RAILWAY_SERVICE_ID
 });
 
 // Middleware
 app.use(express.json());
 app.use((req, res, next) => {
-  console.log(`${new Date().toISOString()} - ${req.method} ${req.path}`);
+  console.log(`${new Date().toISOString()} - ${req.method} ${req.path} - ${req.ip}`);
   next();
 });
 
@@ -23,7 +25,10 @@ app.get('/', (req, res) => {
     status: 'ok',
     message: 'Test server is running',
     timestamp: new Date().toISOString(),
-    environment: process.env.NODE_ENV || 'development'
+    environment: process.env.NODE_ENV || 'development',
+    nodeVersion: process.version,
+    platform: process.platform,
+    memoryUsage: process.memoryUsage()
   });
 });
 
@@ -31,7 +36,8 @@ app.get('/health', (req, res) => {
   res.json({
     status: 'healthy',
     timestamp: new Date().toISOString(),
-    environment: process.env.NODE_ENV || 'development'
+    environment: process.env.NODE_ENV || 'development',
+    uptime: process.uptime()
   });
 });
 
@@ -45,6 +51,7 @@ app.use((req, res) => {
   });
 });
 
+// Get port from environment or use 3000
 const PORT = process.env.PORT || 3000;
 const HOST = process.env.HOST || '0.0.0.0';
 
@@ -56,14 +63,22 @@ server.on('error', (error) => {
   console.error('Server error:', error);
   if (error.code === 'EADDRINUSE') {
     console.error(`Port ${PORT} is already in use`);
+    // Try a different port
+    const newPort = parseInt(PORT) + 1;
+    console.log(`Trying port ${newPort}...`);
+    server.listen(newPort, HOST);
+  } else {
+    process.exit(1);
   }
-  process.exit(1);
 });
 
 // Start the server
 server.listen(PORT, HOST, () => {
   console.log(`Server running at http://${HOST}:${PORT}`);
   console.log('Environment:', process.env.NODE_ENV || 'development');
+  console.log('Node version:', process.version);
+  console.log('Platform:', process.platform);
+  console.log('Memory usage:', process.memoryUsage());
   console.log('Press Ctrl+C to stop the server');
 });
 
