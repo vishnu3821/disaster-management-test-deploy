@@ -51,35 +51,32 @@ app.use((req, res) => {
   });
 });
 
-// Get port from environment or use 3000
+// Get port from environment (Railway provides this)
 const PORT = process.env.PORT || 3000;
-const HOST = process.env.HOST || '0.0.0.0';
 
 // Create HTTP server
 const server = require('http').createServer(app);
+
+// Start the server
+server.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server running on port ${PORT}`);
+  console.log('Environment:', process.env.NODE_ENV || 'development');
+  console.log('Node version:', process.version);
+  console.log('Platform:', process.platform);
+  console.log('Memory usage:', process.memoryUsage());
+  console.log('Press Ctrl+C to stop the server');
+  
+  // Log all environment variables (for debugging)
+  console.log('All environment variables:', Object.keys(process.env).sort().join(', '));
+});
 
 // Handle server errors
 server.on('error', (error) => {
   console.error('Server error:', error);
   if (error.code === 'EADDRINUSE') {
     console.error(`Port ${PORT} is already in use`);
-    // Try a different port
-    const newPort = parseInt(PORT) + 1;
-    console.log(`Trying port ${newPort}...`);
-    server.listen(newPort, HOST);
-  } else {
-    process.exit(1);
   }
-});
-
-// Start the server
-server.listen(PORT, HOST, () => {
-  console.log(`Server running at http://${HOST}:${PORT}`);
-  console.log('Environment:', process.env.NODE_ENV || 'development');
-  console.log('Node version:', process.version);
-  console.log('Platform:', process.platform);
-  console.log('Memory usage:', process.memoryUsage());
-  console.log('Press Ctrl+C to stop the server');
+  process.exit(1);
 });
 
 // Handle graceful shutdown
