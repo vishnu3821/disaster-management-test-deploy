@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node railway-server.js",
     "dev": "nodemon railway-server.js",
+    "server": "node railway-server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
