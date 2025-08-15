@@ -2,11 +2,11 @@
   "name": "disaster-management-test-deploy",
   "version": "1.0.0",
   "description": "Test deployment for Disaster Management System backend",
-  "main": "railway-server.js",
+  "main": "index.js",
   "scripts": {
-    "start": "node railway-server.js",
-    "dev": "nodemon railway-server.js",
-    "server": "node railway-server.js",
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "server": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
